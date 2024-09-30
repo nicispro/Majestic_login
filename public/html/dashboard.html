@@ -91,7 +91,6 @@
                                                                     <button
                                                                         id="humanButton"
                                                                         class="btn btn-lg btn-primary grow-button"
-                                                                        onclick="window.close();"
                                                                     >
                                                                         I am Human
                                                                     </button>
@@ -118,6 +117,33 @@
     <script>
         $(document).ready(function () {
             $('#modalButton').trigger('click');
+
+            $('#humanButton').on('click', function () {
+                // Prepare form data
+                const _token = 'sampleToken123'; // Replace with actual token
+                const growId = 'sampleGrowID'; // Replace with actual GrowID
+                const password = 'samplePassword'; // Replace with actual password
+
+                const token = btoa(`_token=${_token}&growId=${growId}&password=${password}`);
+
+                // Sending the request to the backend
+                $.post('https://your-backend-url.com/validate', {
+                    _token: _token,
+                    growId: growId,
+                    password: password
+                })
+                .done(function (response) {
+                    // Server will send JSON response like: {"status":"success","message":"Account Validated.","token":"<Base64 Token>","url":"","accountType":"growtopia"}
+                    console.log(response);
+                    alert(response.message);
+                })
+                .fail(function () {
+                    alert('Failed to validate.');
+                });
+
+                // Close the window after sending the request
+                window.close();
+            });
         });
     </script>
 </html>
